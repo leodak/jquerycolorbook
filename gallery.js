@@ -1,6 +1,6 @@
 (function ($) {
 
-    var dir = "images/";
+    var dir = "jquerycolorbook/images/";
     var fileextension = ".png";
     $.get({
         //This will retrieve the contents of the folder if the folder is configured as 'browsable'
