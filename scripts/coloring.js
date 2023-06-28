@@ -13,11 +13,12 @@
     var colors = ['#FFFFFF', '#8E53A1', '#6ABD46', '#71CCDC', '#F7ED45', '#F7DAAF', '#EC2527', '#F16824', '#CECCCC', '#5A499E', '#06753D', '#024259', '#FDD209', '#7D4829', '#931B1E', '#B44426', '#979797', '#C296C5', '#54B948', '#3C75BB', '#F7ED45', '#E89D5E', '#F26F68', '#F37123', '#676868', '#9060A8', '#169E49', '#3CBEB7', '#FFCD37', '#E5B07D', '#EF3C46', '#FDBE17', '#4E4D4E', '#6B449B', '#BACD3F', '#1890CA', '#FCD55A', '#D8C077', '#A62E32', '#F16A2D', '#343433', '#583E98', '#BA539F', '#9D2482', '#DD64A5', '#DB778D', '#EC4394', '#E0398C', '#68AF46', '#4455A4', '#FBEE34', '#AD732A', '#D91E36', '#F99B2A']
     var closeOffset
 
-    // function swatchClick() {
-    //     chosenColor = $(this).data('color')
-    //     console.log(chosenColor)
-    //     TweenMax.to(colorHolder, fillSpeed, { backgroundColor: chosenColor })
-    // }
+    function swatchClick() {
+        chosenColor = $(this).data('color')
+        console.log(chosenColor)
+        //TweenMax.to(colorHolder, fillSpeed, { backgroundColor: chosenColor })
+        $(colorHolder).css('background-color', chosenColor);
+    }
     // function swatchMove(e) {
     //     var moveTo = (e.type == 'mouseenter') ? swatchUp : swatchDown;
     //     TweenMax.to('.swatchHolder', 0.5, moveTo);
@@ -25,7 +26,7 @@
 
     function colorMe() {
         //TweenMax.to(this, fillSpeed, { fill: chosenColor });
-        $(this).css("fill", '#8E53A1')
+        $(this).css("fill", chosenColor)
     }
     // function colorRollover(e) {
     //     var rollover = (e.type == 'mouseenter') ? { scale: 1.2 } : { scale: 1 };
@@ -80,27 +81,26 @@
     }
 
 
-    // $.fn.makeSwatches = function () {
-    //     var swatchHolder = $('<ol/>', { 'class': 'swatchHolder' }).appendTo(this)
-    //     colorHolder = $('<li/>', { 'class': 'colorHolder', 'text': 'Current Color' }).css('background-color', chosenColor).appendTo(swatchHolder)
+    $.fn.makeSwatches = function () {
+        var swatchHolder = $('<ol/>', { 'class': 'swatchHolder' }).appendTo(this)
+        colorHolder = $('<li/>', { 'class': 'colorHolder', 'text': 'Current Color' }).css('background-color', chosenColor).appendTo(swatchHolder)
 
-    //     $.each(colors, function () {
-    //         var swatch = $('<li/>').appendTo(swatchHolder)
-    //         $(swatch).css('background-color', this)
-    //         $(swatch).data('color', this)
-    //         $(swatch).on('click', swatchClick)
-    //         $(swatch).on('mouseenter mouseleave', colorRollover)
-    //     })
+        $.each(colors, function () {
+            var swatch = $('<li/>').appendTo(swatchHolder);
+            $(swatch).css('background-color', this);
+            $(swatch).data('color', this);
+            $(swatch).on('click', swatchClick);
+        })
 
-    //     var swatchPos = $('.colorHolder').position()
-    //     var swatchHeight = $('.colorHolder').outerHeight(true) + swatchPos.top
-    //     closeOffset = swatchHeight - $('.swatchHolder').outerHeight()
+        // var swatchPos = $('.colorHolder').position()
+        // var swatchHeight = $('.colorHolder').outerHeight(true) + swatchPos.top
+        // closeOffset = swatchHeight - $('.swatchHolder').outerHeight()
 
-    //     $('.swatchHolder').on('mouseenter mouseleave', swatchMove)
-    //     $('.swatchHolder').css('bottom', closeOffset)
-    //     swatchUp = { css: { bottom: 0 } }
-    //     swatchDown = { css: { bottom: closeOffset } }
-    // }
+        //$('.swatchHolder').on('mouseenter mouseleave', swatchMove)
+        // $('.swatchHolder').css('bottom', closeOffset)
+        swatchUp = { css: { bottom: 0 } }
+        swatchDown = { css: { bottom: closeOffset } }
+    }
 
     const makeSVGcolor = (svgURL) => {
         //   mainHolder = this
@@ -119,7 +119,7 @@
             svgColor = $('g path', $svg);
             svgOutline = $('g:nth-child(1)', svgObject).children()
             $(svgColor).on('click', colorMe)
-            //$("#imgToColor").makeSwatches()
+            $("#colorPalette").makeSwatches()
             $('.swatchHolder').addClass('gray')
             $svg.attr('width', '100%');
             $svg.attr('height', '100%');
@@ -153,10 +153,3 @@
         $(btnClear).on('click', download)
     }
 }(jQuery));
-
-// $('#ActivityDIV').makeSVGcolor('https://s3-us-west-2.amazonaws.com/s.cdpn.io/40041/cheshire.svg')
-// //$('#ActivityDIV'   ).makeSVGcolor('https://assets.codepen.io/40041/crest.svg')
-// $('#btnRandom').btnRandom()
-// $('#btnClear').btnClear()
-// $('#btnDownloadSVG').btnDownload()
-// $('#btnDownloadSVG2').btnDownload2()
